@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+​
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <style>
+    body {
+      background-color: rgba(128, 128, 128, 0.612);
+    }
+​
+    .container {
+      position: relative;
+      top: 100px;
+      text-align: center;
+      width: 100%;
+      padding: 20px 0px;
+      background-color: yellow;
+    }
+​
+    .container h1 {
+      border-bottom: 10px solid black;
+      padding-bottom: 20px;
+      font-size: 3rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+​
+    .container #timer {
+      font-size: 5rem;
+      font-family: monospace;
+      padding-bottom: 20px;
+    }
+​
+    .timeInput input {
+      width: 5%;
+    }
+​
+    button {
+      font-size: 3rem;
+      margin: 20px;
+    }
+  </style>
+</head>
+​
+<body>
+  <div class="container">
+    <h1>25 Minute Countdown Timer</h1>
+    <!-- <div class="timeInput">
+      <div class="hour">
+        <input type="number" name="hour" id="hourInput">
+        <p>Hour</p>
+      </div>
+      <div class="min">
+        <input type="number" name="min" id="minInput">
+        <p>Minute</p>
+      </div>
+      <div class="sec">
+        <input type="number" name="sec" id="secInput">
+        <p>Second</p>
+      </div>
+    </div> -->
+    <div id="timer">25:00</div>
+    <button id="btnStart" class="btn btn-primary">Start</button>
+    <button id="btnReset" class="btn btn-danger">Reset</button>
+  </div>
+  <script>
+    let audio = new Audio(
+      'http://soundbible.com/grab.php?id=2061&type=mp3');
+    $(document).ready(function () {
+      let time = 24
+      let minutes = time
+      let seconds = 60
+      let isStarted = false;
+      const countdown = document.getElementById('timer');
+      let fun = () => {
+        interval = setInterval(runCountdown, 1000)
+      }
+      function runCountdown() {
+        isStarted = true
+        if (seconds <= 0) {
+          seconds = 10;
+          minutes--;
+        }
+        seconds--;
+        if (seconds < 10) {
+          seconds = '0' + seconds;
+        }
+        countdown.innerHTML = `${minutes}:${seconds}`
+        if (minutes === 0 && seconds == 0) {
+          countdown.innerHTML = "Time is Up!"
+          clearInterval(interval);
+          audio.play();
+          return
+        }
+      }
+      $('#btnStart').click(
+        () => {
+          if (!isStarted) fun()
+        })
+
+      $('#btnReset').click(function () {
+        audio.pause();
+        countdown.innerHTML = "25:00"
+        clearInterval(interval)
+        // window.location.reload(false);
+        isStarted = false
+        time = 1;
+        seconds = 60
+      })
+    })
+  </script>
+</body>
+</html>
