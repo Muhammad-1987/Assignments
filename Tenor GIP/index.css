@@ -1,0 +1,19 @@
+body{
+    background-image: url("background.jpg");
+}
+.preview{
+   display: flex;
+   background:#f4f4f4;
+   padding:10px;
+   margin-bottom:10px;
+ }
+ .preview ul{
+   list-style: none;
+ }
+ .img{
+   height: 210px;
+   width:  17%;
+   margin-right: 40px;
+   margin-top: 30px;
+   
+ }
